@@ -1,4 +1,7 @@
+import 'package:battery_info/battery_info_plugin.dart';
 import 'package:flutter/material.dart';
+import 'package:battery_info/model/android_battery_info.dart';
+import 'dart:async';
 
 void main() {
   runApp(BatteryInfo());
@@ -23,6 +26,22 @@ class BatteryInfo extends StatefulWidget {
 }
 
 class _BatteryInfoState extends State<BatteryInfo> {
+  AndroidBatteryInfo? batteryInfo;
+
+  @override
+  void initState() {
+    super.initState();
+    Timer.periodic(Duration(
+      seconds: 1
+    ), (timer) {
+      BatteryInfoPlugin().androidBatteryInfo.then((value) {
+        setState(() {
+          batteryInfo = value;
+        });
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -33,9 +52,23 @@ class _BatteryInfoState extends State<BatteryInfo> {
         ),
 
         body: Center(
-          child: Row(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              TextWhite(text: "check1")
+              TextWhite(text: "Battery Capacity: " + (batteryInfo != null ? (batteryInfo!.batteryCapacity! * 100 / batteryInfo!.batteryLevel! / 1000).toStringAsFixed(0) + " mAh (Approx)"  : "Calculating...")),
+              TextWhite(text: "",),
+              TextWhite(text: "Battery Level: " + (batteryInfo != null ? batteryInfo!.batteryLevel!.toString() + " %" : "Calculating...")),
+              TextWhite(text: "",),
+              TextWhite(text: "Battery Temperature: " + (batteryInfo != null ? batteryInfo!.temperature!.toString() + " C" : "Calculating...")),
+              TextWhite(text: "",),
+              TextWhite(text: "Battery Technology: " + (batteryInfo != null ? batteryInfo!.technology! : "Calculating...")),
+              TextWhite(text: "",),
+              TextWhite(text: "Battery Current: " + (batteryInfo != null ? (batteryInfo!.currentNow! / 1000 * -1).toStringAsFixed(0) + " mA" : "Calculating...")),
+              TextWhite(text: "",),
+              TextWhite(text: "Battery Voltage: " + (batteryInfo != null ? (batteryInfo!.voltage! / 1000).toString() + " V": "Calculating...")),
+              TextWhite(text: "",),
+              TextWhite(text: "Battery Status: " + (batteryInfo != null ? batteryInfo!.chargingStatus!.toString().split(".")[1] : "Calculating...")),
             ],
           ),
         ),
