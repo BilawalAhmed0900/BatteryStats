@@ -56,9 +56,9 @@ class _BatteryInfoState extends State<BatteryInfo> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              TextWhite(text: "Battery Capacity: " + (batteryInfo != null ? (batteryInfo!.batteryCapacity! * 100 / batteryInfo!.batteryLevel! / 1000).toStringAsFixed(0) + " mAh (Approx)"  : "Calculating...")),
-              TextWhite(text: "",),
               TextWhite(text: "Battery Level: " + (batteryInfo != null ? batteryInfo!.batteryLevel!.toString() + " %" : "Calculating...")),
+              TextWhite(text: "",),
+              TextWhite(text: "Battery Energy: " + (batteryInfo != null ? (-batteryInfo!.remainingEnergy! * 1.0E-9).toStringAsFixed(4) + " Wh"  : "Calculating...")),
               TextWhite(text: "",),
               TextWhite(text: "Battery Temperature: " + (batteryInfo != null ? batteryInfo!.temperature!.toString() + " C" : "Calculating...")),
               TextWhite(text: "",),
@@ -69,10 +69,13 @@ class _BatteryInfoState extends State<BatteryInfo> {
               TextWhite(text: "Battery Voltage: " + (batteryInfo != null ? (batteryInfo!.voltage! / 1000).toString() + " V": "Calculating...")),
               TextWhite(text: "",),
               TextWhite(text: "Battery Status: " + (batteryInfo != null ? batteryInfo!.chargingStatus!.toString().split(".")[1] : "Calculating...")),
+              TextWhite(text: "",),
+              TextWhite(text: "",),
+              TextWhite(text: "",),
+              TextWhite(text: "ICON BY prettycon AT flaticons.com",),
             ],
           ),
         ),
-
         backgroundColor: Colors.black,
       ),
     );
