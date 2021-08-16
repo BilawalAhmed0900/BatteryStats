@@ -28,7 +28,7 @@ android {
     compileSdkVersion 30
 
     defaultConfig {
-        applicationId "com.bilawalahmed0900.battery_stats"
+        applicationId "com.ebilawalahmed0900.battery_stats"
         minSdkVersion 16
         targetSdkVersion 30
         versionCode flutterVersionCode.toInteger()
